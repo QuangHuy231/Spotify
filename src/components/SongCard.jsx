@@ -3,10 +3,17 @@ import React from "react";
 import PlayPause from "./PlayPause";
 import { playPause, setActiveSong } from "../redux/features/playerSlice";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 const SongCard = ({ song, isPlaying, activeSong, i, data }) => {
-  const handlePauseClick = () => {};
-  const handlePlayClick = () => {};
+  const dispath = useDispatch();
+  const handlePauseClick = () => {
+    dispath(playPause(false));
+  };
+  const handlePlayClick = () => {
+    dispath(setActiveSong({ song, i, data }));
+    dispath(playPause(true));
+  };
   return (
     <div className="flex flex-col w-[250px] p-4 bg-white/5 bg-opacity-80 backdrop-blur-sm animate-slideup rounded-lg cursor-pointer">
       <div className="relative w-full h-56 group">
