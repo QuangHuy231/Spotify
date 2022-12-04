@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { useGetArtistDetailsQuery } from "../redux/services/shazamCore";
-import { setActiveSong, playPause } from "../redux/features/playerSlice";
+
 import { DetailsHeader, Loader, RelatedSongs } from "../components";
 
 const ArtistDetails = () => {
@@ -13,7 +13,7 @@ const ArtistDetails = () => {
     data: artistData,
     isFetching: isFetchingArtist,
     error,
-  } = useGetArtistDetailsQuery({ artistId });
+  } = useGetArtistDetailsQuery(artistId);
 
   if (isFetchingArtist) return <Loader title="Searching artist details" />;
   if (error) return <Error />;
