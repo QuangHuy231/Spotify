@@ -10,13 +10,12 @@ import { DetailsHeader, Loader, RelatedSongs } from "../components";
 const SongDetails = () => {
   const dispath = useDispatch();
   const { songid } = useParams();
-  const artistId = "";
 
   const { activeSong, isPlaying } = useSelector((state) => state.player);
   const { data: songData, isFetching: isFetchingSongData } =
     useGetSongDetailsQuery({ songid });
   const {
-    data: songRelatedData,
+    data,
     isFetching: isFetchingSongRelated,
     error,
   } = useGetSongRelatedQuery({ songid });
@@ -28,12 +27,12 @@ const SongDetails = () => {
     dispath(playPause(false));
   };
   const handlePlayClick = (song, i) => {
-    dispath(setActiveSong({ song, i, songRelatedData }));
+    dispath(setActiveSong({ song, i, data }));
     dispath(playPause(true));
   };
   return (
     <div className="flex flex-col">
-      <DetailsHeader artistId={artistId} songData={songData} />
+      <DetailsHeader artistId="" songData={songData} />
       <div className="mb-10">
         <h2 className="text-white text-3xl font-bold">Lyrics:</h2>
 
@@ -55,8 +54,7 @@ const SongDetails = () => {
         </div>
       </div>
       <RelatedSongs
-        songRelated={songRelatedData}
-        artistId={artistId}
+        data={data}
         isPlaying={isPlaying}
         activeSong={activeSong}
         handlePause={handlePauseClick}
